@@ -11,55 +11,42 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <style>
       /* ── Reset ──────────────────────────────────────────────────────── */
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
       }
-      html {
-        scroll-behavior: smooth;
-      }
+      html { scroll-behavior: smooth; }
 
       /* ── Tokens ─────────────────────────────────────────────────────── */
       :root {
-        --bg: #f2ede4;
-        --bg-surface: #eae4db;
-        --text: #0d0c0a;
-        --text-muted: #6b6560;
-        --accent: #d4291a;
-        --border: #c8c2b8;
-        --display: "Syne", sans-serif;
-        --body: "Inter", system-ui, -apple-system, sans-serif;
-        --max: 1080px;
-        --nav-h: 60px;
-        --pad: clamp(1.25rem, 5vw, 2.5rem);
+        --bg:      #f2ede4;
+        --bg-dim:  #ebe5dc;
+        --text:    #0d0c0a;
+        --muted:   #6b6560;
+        --accent:  #d4291a;
+        --font:    "Space Grotesk", system-ui, sans-serif;
+        --pad:     clamp(2rem, 7vw, 8rem);
+        --nav-h:   64px;
       }
 
       /* ── Base ───────────────────────────────────────────────────────── */
       body {
-        font-family: var(--body);
+        font-family: var(--font);
         background: var(--bg);
         color: var(--text);
-        line-height: 1.6;
+        line-height: 1.5;
         -webkit-font-smoothing: antialiased;
       }
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-      img {
-        display: block;
-        max-width: 100%;
-      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; max-width: 100%; }
 
-      /* ── Film grain overlay ─────────────────────────────────────────── */
+      /* ── Grain ──────────────────────────────────────────────────────── */
       .grain {
         position: fixed;
         inset: 0;
@@ -68,54 +55,6 @@
         opacity: 0.038;
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23g)'/%3E%3C/svg%3E");
         background-size: 300px 300px;
-        background-repeat: repeat;
-      }
-
-      /* ── Layout ─────────────────────────────────────────────────────── */
-      .wrap {
-        max-width: var(--max);
-        margin-inline: auto;
-        padding-inline: var(--pad);
-      }
-      section {
-        padding-block: 5rem;
-      }
-
-      /* ── Eyebrow ────────────────────────────────────────────────────── */
-      .eyebrow {
-        display: block;
-        font-family: var(--body);
-        font-size: 0.68rem;
-        font-weight: 600;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: var(--accent);
-        margin-bottom: 0.75rem;
-      }
-
-      /* ── Scroll fade-in ─────────────────────────────────────────────── */
-      .fade-in {
-        opacity: 0;
-        transform: translateY(28px);
-        transition:
-          opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-          transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .fade-in.visible {
-        opacity: 1;
-        transform: none;
-      }
-      .fade-in.delay-1 {
-        transition-delay: 0.1s;
-      }
-      .fade-in.delay-2 {
-        transition-delay: 0.2s;
-      }
-      .fade-in.delay-3 {
-        transition-delay: 0.3s;
-      }
-      .fade-in.delay-4 {
-        transition-delay: 0.4s;
       }
 
       /* ── Nav ────────────────────────────────────────────────────────── */
@@ -124,79 +63,77 @@
         inset-block-start: 0;
         inset-inline: 0;
         height: var(--nav-h);
-        background: var(--bg);
-        border-bottom: 1px solid var(--border);
         z-index: 200;
+        transition: background 0.3s, backdrop-filter 0.3s;
+      }
+      nav.scrolled {
+        background: rgba(242, 237, 228, 0.88);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
       }
       .nav-inner {
         height: 100%;
+        padding-inline: var(--pad);
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
       .nav-logo {
-        font-family: var(--display);
         font-size: 1rem;
-        font-weight: 800;
+        font-weight: 600;
         letter-spacing: -0.02em;
       }
       .nav-links {
         list-style: none;
         display: flex;
-        gap: 2.25rem;
+        gap: 2.5rem;
       }
       .nav-links a {
-        font-size: 0.73rem;
+        font-size: 0.78rem;
         font-weight: 500;
-        letter-spacing: 0.08em;
+        letter-spacing: 0.06em;
         text-transform: uppercase;
-        color: var(--text-muted);
+        color: var(--muted);
         transition: color 0.15s;
       }
-      .nav-links a:hover {
-        color: var(--text);
+      .nav-links a:hover { color: var(--text); }
+
+      /* ── Fade in ────────────────────────────────────────────────────── */
+      .fade-in {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                    transform 0.8s cubic-bezier(0.16,1,0.3,1);
       }
+      .fade-in.visible { opacity: 1; transform: none; }
+      .fade-in.d1 { transition-delay: 0.1s; }
+      .fade-in.d2 { transition-delay: 0.2s; }
+      .fade-in.d3 { transition-delay: 0.3s; }
 
       /* ── Hero ───────────────────────────────────────────────────────── */
       #hero {
-        padding-block-start: calc(var(--nav-h) + 4rem);
-        padding-block-end: 5rem;
-        border-bottom: 1px solid var(--border);
+        padding-block-start: calc(var(--nav-h) + 8rem);
+        padding-block-end: 10rem;
+        padding-inline: var(--pad);
       }
 
-      /* Line reveal */
-      .line-wrap {
-        display: block;
-        overflow: hidden;
-        line-height: 1;
-      }
+      .line-wrap { display: block; overflow: hidden; line-height: 1; }
       .line-inner {
         display: block;
-        transform: translateY(108%);
-        animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        transform: translateY(110%);
+        animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) forwards;
       }
-      .line-inner.d1 {
-        animation-delay: 0.05s;
-      }
-      .line-inner.d2 {
-        animation-delay: 0.18s;
-      }
-      .line-inner.d3 {
-        animation-delay: 0.31s;
-      }
-      @keyframes slideUp {
-        to {
-          transform: translateY(0);
-        }
-      }
+      .line-inner.d1 { animation-delay: 0.05s; }
+      .line-inner.d2 { animation-delay: 0.2s; }
+      .line-inner.d3 { animation-delay: 0.35s; }
+      @keyframes slideUp { to { transform: translateY(0); } }
 
       .hero-h1 {
-        font-family: var(--display);
-        font-size: clamp(3.25rem, 12.5vw, 9rem);
-        font-weight: 800;
+        font-size: clamp(4rem, 13vw, 11rem);
+        font-weight: 700;
         letter-spacing: -0.04em;
-        line-height: 1;
-        margin-bottom: 3rem;
+        line-height: 0.95;
+        margin-bottom: 4rem;
       }
       .hero-h1 em {
         font-style: normal;
@@ -206,61 +143,48 @@
       .hero-bottom {
         display: grid;
         grid-template-columns: 1fr auto;
-        gap: 2rem;
+        gap: 4rem;
         align-items: end;
         opacity: 0;
-        animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        animation-delay: 0.6s;
+        animation: fadeUp 0.8s cubic-bezier(0.16,1,0.3,1) 0.7s forwards;
       }
       @keyframes fadeUp {
-        from {
-          opacity: 0;
-          transform: translateY(16px);
-        }
-        to {
-          opacity: 1;
-          transform: none;
-        }
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: none; }
       }
       .hero-sub {
-        font-size: clamp(0.9rem, 1.6vw, 1.05rem);
-        color: var(--text-muted);
-        max-width: 480px;
+        font-size: clamp(1rem, 1.5vw, 1.2rem);
+        font-weight: 400;
+        color: var(--muted);
+        max-width: 500px;
         line-height: 1.7;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
       }
-      .hero-ctas {
-        display: flex;
-        gap: 0.875rem;
-        flex-wrap: wrap;
-      }
+      .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
       .hero-meta {
         text-align: right;
         display: flex;
         flex-direction: column;
-        gap: 0.3rem;
+        gap: 0.4rem;
       }
       .hero-meta-line {
-        font-size: 0.7rem;
+        font-size: 0.72rem;
         font-weight: 500;
         letter-spacing: 0.07em;
         text-transform: uppercase;
-        color: var(--text-muted);
+        color: var(--muted);
       }
 
       /* ── Buttons ────────────────────────────────────────────────────── */
       .btn {
         display: inline-block;
-        font-family: var(--body);
+        font-family: var(--font);
         font-size: 0.8rem;
         font-weight: 600;
         letter-spacing: 0.05em;
-        padding: 0.7rem 1.6rem;
+        padding: 0.75rem 1.75rem;
         cursor: pointer;
-        transition:
-          background 0.15s,
-          color 0.15s,
-          border-color 0.15s;
+        transition: background 0.15s, color 0.15s, border-color 0.15s;
         white-space: nowrap;
       }
       .btn-dark {
@@ -268,86 +192,66 @@
         color: var(--bg);
         border: 1.5px solid var(--text);
       }
-      .btn-dark:hover {
-        background: var(--accent);
-        border-color: var(--accent);
-      }
+      .btn-dark:hover { background: var(--accent); border-color: var(--accent); }
       .btn-outline {
         background: transparent;
         color: var(--text);
-        border: 1.5px solid var(--border);
+        border: 1.5px solid currentColor;
+        opacity: 0.5;
       }
-      .btn-outline:hover {
-        border-color: var(--text);
-      }
+      .btn-outline:hover { opacity: 1; }
 
       /* ── Ticker ─────────────────────────────────────────────────────── */
       .ticker-section {
         overflow: hidden;
-        border-bottom: 1px solid var(--border);
-        padding-block: 1rem;
+        padding-block: 1.1rem;
         background: var(--bg);
         user-select: none;
       }
       .ticker-track {
         display: flex;
         width: max-content;
-        animation: tickerScroll 28s linear infinite;
+        animation: tickerScroll 32s linear infinite;
       }
-      .ticker-track:hover {
-        animation-play-state: paused;
-      }
-      .ticker-group {
-        display: flex;
-        align-items: center;
-        gap: 0;
-        flex-shrink: 0;
-      }
+      .ticker-track:hover { animation-play-state: paused; }
+      .ticker-group { display: flex; align-items: center; flex-shrink: 0; }
       .ticker-item {
-        font-family: var(--display);
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
-        color: var(--text-muted);
+        color: var(--muted);
         padding-inline: 1.5rem;
         white-space: nowrap;
       }
-      .ticker-sep {
-        font-size: 0.6rem;
-        color: var(--accent);
-        flex-shrink: 0;
-      }
+      .ticker-sep { font-size: 0.55rem; color: var(--accent); flex-shrink: 0; }
       @keyframes tickerScroll {
-        from {
-          transform: translateX(0);
-        }
-        to {
-          transform: translateX(-50%);
-        }
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
       }
 
       /* ── About ──────────────────────────────────────────────────────── */
       #about {
-        border-bottom: 1px solid var(--border);
+        padding-block: 10rem;
+        padding-inline: var(--pad);
       }
       .about-layout {
         display: grid;
-        grid-template-columns: 240px 1fr;
-        gap: 5rem;
-        align-items: start;
+        grid-template-columns: 42% 1fr;
+        gap: 6rem;
+        align-items: center;
       }
       .about-photo-wrap {
-        aspect-ratio: 1 / 1;
-        background: var(--bg-surface);
-        border: 1px solid var(--border);
+        aspect-ratio: 4 / 5;
+        background: var(--bg-dim);
         overflow: hidden;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--text-muted);
-        font-size: 0.75rem;
+        color: var(--muted);
+        font-size: 0.8rem;
         font-weight: 500;
+        letter-spacing: 0.04em;
       }
       .about-photo-wrap img {
         width: 100%;
@@ -355,31 +259,29 @@
         object-fit: cover;
       }
       .about-name {
-        font-family: var(--display);
-        font-size: clamp(1.6rem, 3.5vw, 2.5rem);
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-        margin-bottom: 1.25rem;
+        font-size: clamp(2.2rem, 4.5vw, 4rem);
+        font-weight: 700;
+        letter-spacing: -0.035em;
+        line-height: 1.05;
+        margin-bottom: 1.75rem;
       }
       .about-bio {
-        font-size: 0.975rem;
-        color: var(--text-muted);
+        font-size: clamp(1rem, 1.4vw, 1.15rem);
+        font-weight: 400;
+        color: var(--muted);
         line-height: 1.8;
-        margin-bottom: 1.75rem;
-        max-width: 520px;
+        margin-bottom: 2rem;
       }
       .cert-badge {
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
-        border: 1.5px solid var(--border);
-        padding: 0.45rem 0.9rem;
+        border: 1.5px solid rgba(13,12,10,0.2);
+        padding: 0.5rem 1rem;
         font-size: 0.75rem;
         font-weight: 600;
-        letter-spacing: 0.05em;
-        margin-bottom: 1.75rem;
-        background: var(--bg);
+        letter-spacing: 0.04em;
+        margin-bottom: 2rem;
       }
       .cert-dot {
         width: 6px;
@@ -388,145 +290,145 @@
         background: var(--accent);
         flex-shrink: 0;
       }
-      .about-action-links {
-        display: flex;
-        gap: 1.5rem;
-        flex-wrap: wrap;
-      }
+      .about-links { display: flex; gap: 2rem; flex-wrap: wrap; }
       .text-link {
         font-size: 0.78rem;
         font-weight: 600;
         letter-spacing: 0.07em;
         text-transform: uppercase;
-        border-bottom: 1.5px solid var(--border);
+        color: var(--muted);
+        border-bottom: 1px solid currentColor;
         padding-bottom: 2px;
-        transition:
-          color 0.12s,
-          border-color 0.12s;
+        transition: color 0.12s;
       }
-      .text-link:hover {
-        color: var(--accent);
-        border-color: var(--accent);
-      }
+      .text-link:hover { color: var(--text); }
 
       /* ── Projects ───────────────────────────────────────────────────── */
       #projects {
-        border-bottom: 1px solid var(--border);
-      }
-      .section-bar {
-        display: flex;
-        align-items: flex-end;
-        justify-content: space-between;
-        padding-bottom: 0;
-        margin-bottom: 0;
-      }
-      .section-title {
-        font-family: var(--display);
-        font-size: clamp(1.5rem, 3.5vw, 2.25rem);
-        font-weight: 800;
-        letter-spacing: -0.03em;
-        line-height: 1.1;
-      }
-      .project-list {
-        border-top: 1px solid var(--border);
-      }
-      .project-item {
-        display: grid;
-        grid-template-columns: 3.5rem 1fr auto;
-        gap: 2rem;
-        padding-block: 2.5rem;
-        border-bottom: 1px solid var(--border);
-        align-items: start;
-        transition: background 0.15s;
-        margin-inline: calc(-1 * var(--pad));
+        padding-block: 8rem;
         padding-inline: var(--pad);
       }
-      .project-item:hover {
-        background: var(--bg-surface);
+      .projects-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 7rem;
       }
+      .projects-heading {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+      .projects-all-link {
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border-bottom: 1px solid currentColor;
+        padding-bottom: 2px;
+        transition: color 0.12s;
+      }
+      .projects-all-link:hover { color: var(--text); }
 
-      .pi-num {
-        font-family: var(--display);
-        font-size: 0.75rem;
-        font-weight: 800;
-        letter-spacing: 0.08em;
-        color: var(--accent);
-        padding-top: 0.3rem;
+      /* Individual project entry */
+      .project-entry {
+        margin-bottom: 9rem;
       }
-      .pi-body {
-        min-width: 0;
+      .project-entry:last-child { margin-bottom: 0; }
+
+      .project-meta-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 1.75rem;
       }
-      .pi-title {
-        font-family: var(--display);
-        font-size: clamp(1.1rem, 2.2vw, 1.6rem);
+      .project-name {
+        font-size: clamp(1.3rem, 2.2vw, 1.9rem);
         font-weight: 700;
         letter-spacing: -0.025em;
-        line-height: 1.2;
-        margin-bottom: 0.55rem;
       }
-      .pi-desc {
-        font-size: 0.875rem;
-        color: var(--text-muted);
-        line-height: 1.65;
-        margin-bottom: 1rem;
-        max-width: 580px;
+      .project-year {
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        color: var(--muted);
       }
-      .pi-tags {
+
+      /* Image grid */
+      .project-images {
+        display: grid;
+        gap: 0.5rem;
+        margin-bottom: 1.75rem;
+      }
+      .project-images.cols-1 { grid-template-columns: 1fr; }
+      .project-images.cols-2 { grid-template-columns: 1fr 1fr; }
+      .project-images.cols-3 { grid-template-columns: 1fr 1.6fr 1fr; }
+      .project-images.placeholder-mode { grid-template-columns: 1fr; }
+
+      .project-img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        background: var(--bg-dim);
+        filter: saturate(0.82) sepia(0.08) contrast(1.02);
+        transition: filter 0.3s;
+      }
+      .project-img:hover { filter: saturate(1) sepia(0) contrast(1); }
+
+      .project-placeholder {
+        width: 100%;
+        aspect-ratio: 16 / 7;
+        background: var(--bg-dim);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      .project-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 3rem;
+      }
+      .project-desc {
+        font-size: 0.95rem;
+        font-weight: 400;
+        color: var(--muted);
+        line-height: 1.75;
+        max-width: 620px;
+      }
+      .project-tags-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 1rem;
+        flex-shrink: 0;
+      }
+      .project-tags {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.4rem;
-        margin-bottom: 0;
+        gap: 0.35rem;
+        justify-content: flex-end;
       }
       .tag {
-        font-size: 0.65rem;
+        font-size: 0.62rem;
         font-weight: 600;
         letter-spacing: 0.07em;
         text-transform: uppercase;
         padding: 0.2rem 0.55rem;
-        border: 1px solid var(--border);
-        color: var(--text-muted);
-        background: var(--bg);
+        border: 1px solid rgba(13,12,10,0.18);
+        color: var(--muted);
       }
-
-      /* Screenshot — full-width below description */
-      .pi-screenshot-wrap {
-        margin-top: 1.5rem;
-        border: 1px solid var(--border);
-        overflow: hidden;
-        position: relative;
-      }
-      .pi-screenshot-wrap img {
-        width: 100%;
-        display: block;
-        filter: saturate(0.78) sepia(0.1) contrast(1.02) brightness(0.98);
-        transition: filter 0.3s ease;
-      }
-      .pi-screenshot-wrap:hover img {
-        filter: saturate(0.92) sepia(0.04) contrast(1.01) brightness(1);
-      }
-      /* Placeholder when no screenshot yet */
-      .pi-screenshot-placeholder {
-        background: var(--bg-surface);
-        border: 1px dashed var(--border);
-        height: 200px;
+      .project-links {
         display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 1.5rem;
-        font-size: 0.75rem;
-        letter-spacing: 0.07em;
-        text-transform: uppercase;
-        color: var(--text-muted);
-        font-weight: 600;
-      }
-
-      .pi-actions {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 0.75rem;
-        padding-top: 0.25rem;
-        flex-shrink: 0;
+        gap: 1.5rem;
       }
       .pi-link {
         font-size: 0.75rem;
@@ -534,144 +436,119 @@
         letter-spacing: 0.06em;
         text-transform: uppercase;
         color: var(--text);
-        display: flex;
-        align-items: center;
-        gap: 0.3rem;
         transition: color 0.12s;
         white-space: nowrap;
       }
-      .pi-link:hover {
-        color: var(--accent);
-      }
+      .pi-link:hover { color: var(--accent); }
 
       /* ── Skills ─────────────────────────────────────────────────────── */
       #skills {
-        border-bottom: 1px solid var(--border);
-        background: var(--bg-surface);
+        padding-block: 10rem;
+        padding-inline: var(--pad);
+        background: var(--bg-dim);
+      }
+      .skills-heading {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin-bottom: 5rem;
       }
       .skills-layout {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 3rem;
-        margin-top: 3rem;
+        gap: 4rem;
       }
       .skill-col-title {
-        font-family: var(--display);
-        font-size: 0.8rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
         text-transform: uppercase;
         color: var(--accent);
-        margin-bottom: 1.25rem;
-        padding-bottom: 0.75rem;
-        border-bottom: 1px solid var(--border);
+        margin-bottom: 2rem;
       }
-      .skill-list {
-        list-style: none;
-      }
+      .skill-list { list-style: none; }
       .skill-list li {
-        font-size: 0.9rem;
-        font-weight: 500;
-        padding-block: 0.5rem;
-        border-bottom: 1px solid var(--border);
+        font-size: 0.95rem;
+        font-weight: 400;
+        padding-block: 0.6rem;
+        border-bottom: 1px solid rgba(13,12,10,0.1);
         display: flex;
         align-items: center;
-        gap: 0.6rem;
+        gap: 0.75rem;
+        color: var(--text);
       }
-      .skill-list li:last-child {
-        border-bottom: none;
-      }
-      .skill-list li::before {
-        content: "";
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: var(--accent);
-        flex-shrink: 0;
-      }
+      .skill-list li:first-child { border-top: 1px solid rgba(13,12,10,0.1); }
 
       /* ── Contact ────────────────────────────────────────────────────── */
       #contact {
+        padding-block: 10rem;
+        padding-inline: var(--pad);
       }
       .contact-layout {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 5rem;
+        gap: 8rem;
         align-items: start;
       }
       .contact-heading {
-        font-family: var(--display);
-        font-size: clamp(1.8rem, 4vw, 3rem);
-        font-weight: 800;
-        letter-spacing: -0.035em;
-        line-height: 1.05;
-        margin-bottom: 1.25rem;
+        font-size: clamp(2.5rem, 5vw, 4.5rem);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1.0;
+        margin-bottom: 1.5rem;
       }
       .contact-copy {
         font-size: 0.95rem;
-        color: var(--text-muted);
+        font-weight: 400;
+        color: var(--muted);
         line-height: 1.75;
-        margin-bottom: 2rem;
+        margin-bottom: 2.5rem;
       }
-      .contact-detail {
-        margin-bottom: 1.1rem;
-      }
+      .contact-detail { margin-bottom: 1.25rem; }
       .contact-detail-label {
-        font-size: 0.67rem;
-        font-weight: 700;
+        font-size: 0.65rem;
+        font-weight: 600;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--text-muted);
-        margin-bottom: 0.2rem;
+        color: var(--muted);
+        margin-bottom: 0.25rem;
       }
-      .contact-detail-value {
-        font-size: 0.9rem;
-        font-weight: 500;
-      }
-      .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.1rem;
-      }
-      .field {
-        display: flex;
-        flex-direction: column;
-        gap: 0.35rem;
-      }
+      .contact-detail-value { font-size: 0.95rem; font-weight: 500; }
+
+      /* Form */
+      .contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+      .field { display: flex; flex-direction: column; gap: 0.4rem; }
       .field label {
-        font-size: 0.67rem;
-        font-weight: 700;
+        font-size: 0.65rem;
+        font-weight: 600;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-        color: var(--text-muted);
+        color: var(--muted);
       }
       .field input,
       .field textarea,
       .field select {
-        font-family: var(--body);
-        font-size: 0.9rem;
+        font-family: var(--font);
+        font-size: 0.95rem;
+        font-weight: 400;
         color: var(--text);
-        background: var(--bg);
-        border: 1.5px solid var(--border);
-        padding: 0.7rem 0.9rem;
+        background: transparent;
+        border: none;
+        border-bottom: 1.5px solid rgba(13,12,10,0.25);
+        padding: 0.6rem 0;
         outline: none;
-        transition: border-color 0.12s;
         width: 100%;
         appearance: none;
         -webkit-appearance: none;
+        transition: border-color 0.15s;
       }
       .field input:focus,
       .field textarea:focus,
-      .field select:focus {
-        border-color: var(--text);
-      }
-      .field textarea {
-        min-height: 110px;
-        resize: vertical;
-      }
+      .field select:focus { border-color: var(--text); }
+      .field textarea { min-height: 100px; resize: vertical; }
       .form-submit {
         align-self: flex-start;
-        font-family: var(--body);
+        font-family: var(--font);
         font-size: 0.8rem;
         font-weight: 700;
         letter-spacing: 0.07em;
@@ -679,18 +556,17 @@
         background: var(--text);
         color: var(--bg);
         border: none;
-        padding: 0.8rem 2rem;
+        padding: 0.9rem 2.25rem;
         cursor: pointer;
         transition: background 0.15s;
+        margin-top: 0.5rem;
       }
-      .form-submit:hover {
-        background: var(--accent);
-      }
+      .form-submit:hover { background: var(--accent); }
 
       /* ── Footer ─────────────────────────────────────────────────────── */
       footer {
-        border-top: 1px solid var(--border);
-        padding-block: 1.75rem;
+        padding-block: 2.5rem;
+        padding-inline: var(--pad);
       }
       .footer-inner {
         display: flex;
@@ -698,78 +574,48 @@
         align-items: center;
       }
       .footer-copy {
-        font-size: 0.75rem;
-        color: var(--text-muted);
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: var(--muted);
       }
-      .footer-links {
-        display: flex;
-        gap: 1.75rem;
-      }
+      .footer-links { display: flex; gap: 2rem; }
       .footer-links a {
-        font-size: 0.75rem;
-        color: var(--text-muted);
+        font-size: 0.72rem;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
         transition: color 0.12s;
       }
-      .footer-links a:hover {
-        color: var(--text);
-      }
+      .footer-links a:hover { color: var(--text); }
 
       /* ── Responsive ─────────────────────────────────────────────────── */
-      @media (max-width: 820px) {
-        .about-layout {
-          grid-template-columns: 1fr;
-          gap: 2.5rem;
-        }
-        .about-photo-wrap {
-          width: 160px;
-          height: 160px;
-        }
-        .contact-layout {
-          grid-template-columns: 1fr;
-          gap: 3rem;
-        }
-        .skills-layout {
-          grid-template-columns: 1fr 1fr;
-          gap: 2rem;
-        }
-        .hero-bottom {
-          grid-template-columns: 1fr;
-        }
-        .hero-meta {
-          text-align: left;
-          flex-direction: row;
-          flex-wrap: wrap;
-          gap: 0.75rem;
-        }
+      @media (max-width: 900px) {
+        .about-layout { grid-template-columns: 1fr; gap: 3.5rem; }
+        .about-photo-wrap { aspect-ratio: 3 / 2; max-width: 480px; }
+        .contact-layout { grid-template-columns: 1fr; gap: 4rem; }
+        .skills-layout { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+        .hero-bottom { grid-template-columns: 1fr; }
+        .hero-meta { text-align: left; flex-direction: row; flex-wrap: wrap; gap: 0.75rem; }
+        .project-footer { flex-direction: column; gap: 1.5rem; }
+        .project-tags-links { align-items: flex-start; }
+        .project-tags { justify-content: flex-start; }
       }
       @media (max-width: 580px) {
-        .nav-links {
-          display: none;
-        }
-        .skills-layout {
-          grid-template-columns: 1fr;
-          gap: 2rem;
-        }
-        .project-item {
-          grid-template-columns: 2.5rem 1fr;
-          grid-template-rows: auto auto;
-        }
-        .pi-actions {
-          grid-column: 2;
-          flex-direction: row;
-          align-items: flex-start;
-          padding-top: 0;
-        }
+        .nav-links { display: none; }
+        .skills-layout { grid-template-columns: 1fr; }
+        .project-images.cols-3 { grid-template-columns: 1fr; }
+        .project-images.cols-2 { grid-template-columns: 1fr; }
+        .projects-header { flex-direction: column; gap: 1rem; }
       }
     </style>
   </head>
   <body>
-    <!-- ── Grain overlay ─────────────────────────────────────────────── -->
     <div class="grain" aria-hidden="true"></div>
 
-    <!-- ── Nav ───────────────────────────────────────────────────────── -->
-    <nav>
-      <div class="wrap nav-inner">
+    <!-- Nav -->
+    <nav id="nav">
+      <div class="nav-inner">
         <a href="#" class="nav-logo">Hammad Yousuf</a>
         <ul class="nav-links">
           <li><a href="#about">About</a></li>
@@ -780,521 +626,379 @@
       </div>
     </nav>
 
-    <!-- ── Hero ──────────────────────────────────────────────────────── -->
+    <!-- Hero -->
     <section id="hero">
-      <div class="wrap">
-        <h1 class="hero-h1" aria-label="Marketing Analytics Professional">
-          <span class="line-wrap"
-            ><span class="line-inner d1">Marketing</span></span
-          >
-          <span class="line-wrap"
-            ><span class="line-inner d2">Analytics</span></span
-          >
-          <span class="line-wrap"
-            ><em class="line-inner d3">Professional</em></span
-          >
-        </h1>
-        <div class="hero-bottom">
-          <div>
-            <p class="hero-sub">
-              Specialising in GA4, GTM &amp; Google Ads measurement — turning
-              tracking setups into actionable growth insights.
-            </p>
-            <div class="hero-ctas">
-              <a href="#projects" class="btn btn-dark">View My Work</a>
-              <a
-                href="/assets/YOUSUF_MohdHammad_CV_2026.pdf"
-                class="btn btn-outline"
-                download
-                >Download CV</a
-              >
-            </div>
+      <h1 class="hero-h1" aria-label="Marketing Analytics Professional">
+        <span class="line-wrap"><span class="line-inner d1">Marketing</span></span>
+        <span class="line-wrap"><span class="line-inner d2">Analytics</span></span>
+        <span class="line-wrap"><em class="line-inner d3">Professional</em></span>
+      </h1>
+      <div class="hero-bottom">
+        <div>
+          <p class="hero-sub">
+            Specialising in GA4, GTM &amp; Google Ads measurement —
+            turning tracking setups into actionable growth insights.
+          </p>
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-dark">View My Work</a>
+            <a href="/assets/YOUSUF_MohdHammad_CV_2026.pdf" class="btn btn-outline" download>Download CV</a>
           </div>
-          <div class="hero-meta">
-            <span class="hero-meta-line">Available for remote</span>
-            <span class="hero-meta-line">New Delhi, India</span>
-            <span class="hero-meta-line">Open to relocation</span>
-          </div>
+        </div>
+        <div class="hero-meta">
+          <span class="hero-meta-line">Available for remote</span>
+          <span class="hero-meta-line">New Delhi, India</span>
+          <span class="hero-meta-line">Open to relocation</span>
         </div>
       </div>
     </section>
 
-    <!-- ── Skills ticker ─────────────────────────────────────────────── -->
+    <!-- Ticker -->
     <div class="ticker-section" aria-hidden="true">
       <div class="ticker-track">
-        <!-- Group 1 -->
         <div class="ticker-group">
           <span class="ticker-item">GA4</span><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Google Tag Manager</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Google Ads</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Looker Studio</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">BigQuery</span
-          ><span class="ticker-sep">✦</span> <span class="ticker-item">SQL</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Python</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Power BI</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Tableau</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">HubSpot</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Cookiebot</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">CLTV Modelling</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">ROAS Optimisation</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Data Layer</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Measurement Architecture</span
-          ><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Google Tag Manager</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Google Ads</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Looker Studio</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">BigQuery</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">SQL</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Python</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Power BI</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Tableau</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">HubSpot</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Cookiebot</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">CLTV Modelling</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">ROAS Optimisation</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Data Layer</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Measurement Architecture</span><span class="ticker-sep">✦</span>
         </div>
-        <!-- Group 2 — exact duplicate for seamless loop -->
-        <div class="ticker-group">
+        <div class="ticker-group" aria-hidden="true">
           <span class="ticker-item">GA4</span><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Google Tag Manager</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Google Ads</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Looker Studio</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">BigQuery</span
-          ><span class="ticker-sep">✦</span> <span class="ticker-item">SQL</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Python</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Power BI</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Tableau</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">HubSpot</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Cookiebot</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">CLTV Modelling</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">ROAS Optimisation</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Data Layer</span
-          ><span class="ticker-sep">✦</span>
-          <span class="ticker-item">Measurement Architecture</span
-          ><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Google Tag Manager</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Google Ads</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Looker Studio</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">BigQuery</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">SQL</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Python</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Power BI</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Tableau</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">HubSpot</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Cookiebot</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">CLTV Modelling</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">ROAS Optimisation</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Data Layer</span><span class="ticker-sep">✦</span>
+          <span class="ticker-item">Measurement Architecture</span><span class="ticker-sep">✦</span>
         </div>
       </div>
     </div>
 
-    <!-- ── About ─────────────────────────────────────────────────────── -->
+    <!-- About -->
     <section id="about">
-      <div class="wrap">
-        <div class="about-layout">
-          <div class="fade-in">
-            <div class="about-photo-wrap">
-              <img
-                src="/assets/profile.jpg"
-                alt="Mohd Hammad Yousuf"
-                onerror="
-                  this.style.display = 'none';
-                  this.parentElement.textContent = 'Photo coming soon';
-                "
-              />
-            </div>
-          </div>
-          <div>
-            <span class="eyebrow fade-in">About</span>
-            <h2 class="about-name fade-in delay-1">Mohd Hammad Yousuf</h2>
-            <p class="about-bio fade-in delay-2">
-              Marketing analytics professional with 4+ years turning commercial
-              and behavioural data into decisions that move the needle. EDHEC
-              Grande École graduate (Top-10 French business school), with
-              hands-on experience in GA4 measurement architecture, GTM
-              implementation, SQL pipelines, and Power BI dashboards. Available
-              for remote engagements.
-            </p>
-            <div class="cert-badge fade-in delay-2">
-              <span class="cert-dot"></span>
-              Google Analytics Certified
-            </div>
-            <div class="about-action-links fade-in delay-3">
-              <a
-                href="https://linkedin.com/in/hammad-yousuf"
-                target="_blank"
-                rel="noopener"
-                class="text-link"
-                >LinkedIn</a
-              >
-              <a
-                href="https://github.com/dexhamter"
-                target="_blank"
-                rel="noopener"
-                class="text-link"
-                >GitHub</a
-              >
-              <a
-                href="/assets/YOUSUF_MohdHammad_CV_2026.pdf"
-                download
-                class="text-link"
-                >Download CV</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Projects ──────────────────────────────────────────────────── -->
-    <section id="projects">
-      <div class="wrap">
-        <div class="section-bar fade-in">
-          <div>
-            <span class="eyebrow">Work</span>
-            <h2 class="section-title">Selected Projects</h2>
-          </div>
-          <a
-            href="https://github.com/dexhamter"
-            target="_blank"
-            rel="noopener"
-            class="btn btn-outline"
-            >All Projects →</a
-          >
-        </div>
-
-        <div class="project-list">
-          <!-- 01 -->
-          <div class="project-item fade-in">
-            <div class="pi-num">01</div>
-            <div class="pi-body">
-              <h3 class="pi-title">Google Ads Measurement Library</h3>
-              <p class="pi-desc">
-                A self-documenting reference library for Google Ads measurement
-                architecture, built through 5 real implementations across Lead
-                Gen, Ecommerce, SaaS, Multi-Location, and Enterprise B2B site
-                types. Each includes GTM container exports, data layer specs,
-                GA4 configuration, and full implementation guides.
-              </p>
-              <div class="pi-tags">
-                <span class="tag">GA4</span>
-                <span class="tag">GTM</span>
-                <span class="tag">Google Ads</span>
-                <span class="tag">Cookiebot</span>
-                <span class="tag">HubSpot</span>
-                <span class="tag">WordPress</span>
-              </div>
-              <div class="pi-screenshot-placeholder">
-                Screenshot coming soon — visit the live site below
-              </div>
-            </div>
-            <div class="pi-actions">
-              <a
-                href="https://dexhamter.github.io/google-ads-measurement-library/"
-                target="_blank"
-                rel="noopener"
-                class="pi-link"
-                >↗ Live Site</a
-              >
-              <a
-                href="https://github.com/dexhamter/google-ads-measurement-library"
-                target="_blank"
-                rel="noopener"
-                class="pi-link"
-                >↗ GitHub</a
-              >
-            </div>
-          </div>
-
-          <!-- 02 -->
-          <div class="project-item fade-in delay-1">
-            <div class="pi-num">02</div>
-            <div class="pi-body">
-              <h3 class="pi-title">Marketing ROAS Optimization</h3>
-              <p class="pi-desc">
-                Analysed multi-channel funnel performance to identify spend
-                inefficiencies and trade-offs between acquisition cost,
-                conversion rate, and return on ad spend. Built using SQL for
-                data pipelines and Power BI for stakeholder-facing dashboards.
-              </p>
-              <div class="pi-tags">
-                <span class="tag">SQL</span>
-                <span class="tag">Excel</span>
-                <span class="tag">Power BI</span>
-                <span class="tag">Marketing Analytics</span>
-              </div>
-              <div class="pi-screenshot-wrap">
-                <img
-                  src="/assets/screenshots/roas.png"
-                  alt="ROAS Optimization Dashboard"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <div class="pi-actions">
-              <a
-                href="https://github.com/dexhamter/marketing-roas-optimization"
-                target="_blank"
-                rel="noopener"
-                class="pi-link"
-                >↗ GitHub</a
-              >
-            </div>
-          </div>
-
-          <!-- 03 -->
-          <div class="project-item fade-in delay-2">
-            <div class="pi-num">03</div>
-            <div class="pi-body">
-              <h3 class="pi-title">Ecommerce Customer Lifetime Value</h3>
-              <p class="pi-desc">
-                Predictive CLTV modelling using BG/NBD and Gamma-Gamma
-                approaches to segment customers and prioritise retention and
-                acquisition. Includes SQL pipelines and Power BI dashboards
-                surfacing lifecycle insights for commercial decisions.
-              </p>
-              <div class="pi-tags">
-                <span class="tag">Python</span>
-                <span class="tag">SQL</span>
-                <span class="tag">Power BI</span>
-                <span class="tag">Predictive Analytics</span>
-              </div>
-              <div class="pi-screenshot-wrap">
-                <img
-                  src="/assets/screenshots/cltv.png"
-                  alt="CLTV Dashboard"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <div class="pi-actions">
-              <a
-                href="https://github.com/dexhamter/ecommerce-cltv-capstone"
-                target="_blank"
-                rel="noopener"
-                class="pi-link"
-                >↗ GitHub</a
-              >
-            </div>
-          </div>
-
-          <!-- 04 -->
-          <div class="project-item fade-in delay-1">
-            <div class="pi-num">04</div>
-            <div class="pi-body">
-              <h3 class="pi-title">Hotel Revenue &amp; Demand Analysis</h3>
-              <p class="pi-desc">
-                End-to-end analytics project using Python, PostgreSQL, and Power
-                BI to identify pricing and occupancy drivers across three years
-                of booking data, supporting revenue optimisation decisions.
-              </p>
-              <div class="pi-tags">
-                <span class="tag">Python</span>
-                <span class="tag">PostgreSQL</span>
-                <span class="tag">Power BI</span>
-                <span class="tag">ETL</span>
-              </div>
-              <div class="pi-screenshot-wrap">
-                <img
-                  src="/assets/screenshots/hotel.png"
-                  alt="Hotel Revenue Dashboard"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <div class="pi-actions">
-              <a
-                href="https://github.com/dexhamter/hotel_revenue"
-                target="_blank"
-                rel="noopener"
-                class="pi-link"
-                >↗ GitHub</a
-              >
-            </div>
-          </div>
-
-          <!-- 05 -->
-          <div class="project-item fade-in delay-2">
-            <div class="pi-num">05</div>
-            <div class="pi-body">
-              <h3 class="pi-title">F&amp;B Store Product Mix Analysis</h3>
-              <p class="pi-desc">
-                Data analysis providing product mix recommendations for new
-                store openings in an F&amp;B retail chain. Compared historical
-                sales performance across store formats to identify optimal
-                assortments by location type and customer demographic.
-              </p>
-              <div class="pi-tags">
-                <span class="tag">Power BI</span>
-                <span class="tag">SQL</span>
-                <span class="tag">Retail Analytics</span>
-                <span class="tag">Business Intelligence</span>
-              </div>
-              <div class="pi-screenshot-wrap">
-                <img
-                  src="/assets/screenshots/fnb.png"
-                  alt="F&B Product Mix Dashboard"
-                  loading="lazy"
-                />
-              </div>
-            </div>
-            <div class="pi-actions">
-              <a
-                href="https://github.com/dexhamter/fnb-store-product-mix-analysis"
-                target="_blank"
-                rel="noopener"
-                class="pi-link"
-                >↗ GitHub</a
-              >
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── Skills ─────────────────────────────────────────────────────── -->
-    <section id="skills">
-      <div class="wrap">
+      <div class="about-layout">
         <div class="fade-in">
-          <span class="eyebrow">Capabilities</span>
-          <h2 class="section-title">Skills &amp; Tools</h2>
+          <div class="about-photo-wrap">
+            <img
+              src="/assets/profile.jpg"
+              alt="Mohd Hammad Yousuf"
+              onerror="this.style.display='none'; this.parentElement.textContent='Photo coming soon';"
+            />
+          </div>
         </div>
-        <div class="skills-layout">
-          <div class="fade-in delay-1">
-            <p class="skill-col-title">Measurement &amp; Analytics</p>
-            <ul class="skill-list">
-              <li>GA4</li>
-              <li>Google Tag Manager</li>
-              <li>Google Ads</li>
-              <li>Looker Studio</li>
-              <li>BigQuery</li>
-            </ul>
+        <div>
+          <h2 class="about-name fade-in d1">Mohd Hammad<br>Yousuf</h2>
+          <p class="about-bio fade-in d2">
+            Marketing analytics professional with 4+ years turning commercial
+            and behavioural data into decisions that move the needle. EDHEC
+            Grande École graduate (Top-10 French business school), with
+            hands-on experience in GA4 measurement architecture, GTM
+            implementation, SQL pipelines, and Power BI dashboards.
+            Available for remote engagements.
+          </p>
+          <div class="cert-badge fade-in d2">
+            <span class="cert-dot"></span>
+            Google Analytics Certified
           </div>
-          <div class="fade-in delay-2">
-            <p class="skill-col-title">Data &amp; BI</p>
-            <ul class="skill-list">
-              <li>SQL (PostgreSQL)</li>
-              <li>Python (pandas, NumPy)</li>
-              <li>Power BI</li>
-              <li>Tableau</li>
-              <li>Excel / Google Sheets</li>
-            </ul>
-          </div>
-          <div class="fade-in delay-3">
-            <p class="skill-col-title">Tools &amp; Platforms</p>
-            <ul class="skill-list">
-              <li>HubSpot</li>
-              <li>Cookiebot</li>
-              <li>WordPress</li>
-              <li>Calendly</li>
-              <li>Tawk.to</li>
-            </ul>
+          <div class="about-links fade-in d3">
+            <a href="https://linkedin.com/in/hammad-yousuf" target="_blank" rel="noopener" class="text-link">LinkedIn</a>
+            <a href="https://github.com/dexhamter" target="_blank" rel="noopener" class="text-link">GitHub</a>
+            <a href="/assets/YOUSUF_MohdHammad_CV_2026.pdf" download class="text-link">Download CV</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ── Contact ────────────────────────────────────────────────────── -->
+    <!-- Projects -->
+    <section id="projects">
+      <div class="projects-header fade-in">
+        <h2 class="projects-heading">Selected Projects</h2>
+        <a href="https://github.com/dexhamter" target="_blank" rel="noopener" class="projects-all-link">All Projects →</a>
+      </div>
+
+      <!-- 01 -->
+      <div class="project-entry fade-in">
+        <div class="project-meta-row">
+          <h3 class="project-name">Google Ads Measurement Library</h3>
+          <span class="project-year">2025</span>
+        </div>
+        <div class="project-images placeholder-mode">
+          <div class="project-placeholder">Screenshot coming soon — visit the live site below</div>
+        </div>
+        <div class="project-footer">
+          <p class="project-desc">
+            A self-documenting reference library for Google Ads measurement
+            architecture, built through 5 real implementations across Lead Gen,
+            Ecommerce, SaaS, Multi-Location, and Enterprise B2B site types.
+            Each includes GTM container exports, data layer specs, GA4
+            configuration, and full implementation guides.
+          </p>
+          <div class="project-tags-links">
+            <div class="project-tags">
+              <span class="tag">GA4</span>
+              <span class="tag">GTM</span>
+              <span class="tag">Google Ads</span>
+              <span class="tag">Cookiebot</span>
+              <span class="tag">HubSpot</span>
+              <span class="tag">WordPress</span>
+            </div>
+            <div class="project-links">
+              <a href="https://dexhamter.github.io/google-ads-measurement-library/" target="_blank" rel="noopener" class="pi-link">↗ Live Site</a>
+              <a href="https://github.com/dexhamter/google-ads-measurement-library" target="_blank" rel="noopener" class="pi-link">↗ GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="project-entry fade-in d1">
+        <div class="project-meta-row">
+          <h3 class="project-name">Marketing ROAS Optimization</h3>
+          <span class="project-year">2024</span>
+        </div>
+        <div class="project-images cols-1">
+          <img class="project-img" src="/assets/screenshots/roas.png" alt="ROAS Optimization Dashboard" loading="lazy" />
+        </div>
+        <div class="project-footer">
+          <p class="project-desc">
+            Analysed multi-channel funnel performance to identify spend
+            inefficiencies and trade-offs between acquisition cost, conversion
+            rate, and return on ad spend. Built using SQL for data pipelines
+            and Power BI for stakeholder-facing dashboards.
+          </p>
+          <div class="project-tags-links">
+            <div class="project-tags">
+              <span class="tag">SQL</span>
+              <span class="tag">Excel</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">Marketing Analytics</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/dexhamter/marketing-roas-optimization" target="_blank" rel="noopener" class="pi-link">↗ GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="project-entry fade-in d2">
+        <div class="project-meta-row">
+          <h3 class="project-name">Ecommerce Customer Lifetime Value</h3>
+          <span class="project-year">2024</span>
+        </div>
+        <div class="project-images cols-1">
+          <img class="project-img" src="/assets/screenshots/cltv.png" alt="CLTV Dashboard" loading="lazy" />
+        </div>
+        <div class="project-footer">
+          <p class="project-desc">
+            Predictive CLTV modelling using BG/NBD and Gamma-Gamma approaches
+            to segment customers and prioritise retention and acquisition.
+            Includes SQL pipelines and Power BI dashboards surfacing lifecycle
+            insights for commercial decisions.
+          </p>
+          <div class="project-tags-links">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">Predictive Analytics</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/dexhamter/ecommerce-cltv-capstone" target="_blank" rel="noopener" class="pi-link">↗ GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="project-entry fade-in d1">
+        <div class="project-meta-row">
+          <h3 class="project-name">Hotel Revenue &amp; Demand Analysis</h3>
+          <span class="project-year">2024</span>
+        </div>
+        <div class="project-images cols-1">
+          <img class="project-img" src="/assets/screenshots/hotel.png" alt="Hotel Revenue Dashboard" loading="lazy" />
+        </div>
+        <div class="project-footer">
+          <p class="project-desc">
+            End-to-end analytics project using Python, PostgreSQL, and Power BI
+            to identify pricing and occupancy drivers across three years of
+            booking data, supporting revenue optimisation decisions.
+          </p>
+          <div class="project-tags-links">
+            <div class="project-tags">
+              <span class="tag">Python</span>
+              <span class="tag">PostgreSQL</span>
+              <span class="tag">Power BI</span>
+              <span class="tag">ETL</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/dexhamter/hotel_revenue" target="_blank" rel="noopener" class="pi-link">↗ GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="project-entry fade-in d2">
+        <div class="project-meta-row">
+          <h3 class="project-name">F&amp;B Store Product Mix Analysis</h3>
+          <span class="project-year">2023</span>
+        </div>
+        <div class="project-images cols-1">
+          <img class="project-img" src="/assets/screenshots/fnb.png" alt="F&B Product Mix Dashboard" loading="lazy" />
+        </div>
+        <div class="project-footer">
+          <p class="project-desc">
+            Data analysis providing product mix recommendations for new store
+            openings in an F&amp;B retail chain. Compared historical sales
+            performance across store formats to identify optimal assortments
+            by location type and customer demographic.
+          </p>
+          <div class="project-tags-links">
+            <div class="project-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Retail Analytics</span>
+              <span class="tag">Business Intelligence</span>
+            </div>
+            <div class="project-links">
+              <a href="https://github.com/dexhamter/fnb-store-product-mix-analysis" target="_blank" rel="noopener" class="pi-link">↗ GitHub</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+      <h2 class="skills-heading fade-in">Skills &amp; Tools</h2>
+      <div class="skills-layout">
+        <div class="fade-in d1">
+          <p class="skill-col-title">Measurement &amp; Analytics</p>
+          <ul class="skill-list">
+            <li>GA4</li>
+            <li>Google Tag Manager</li>
+            <li>Google Ads</li>
+            <li>Looker Studio</li>
+            <li>BigQuery</li>
+          </ul>
+        </div>
+        <div class="fade-in d2">
+          <p class="skill-col-title">Data &amp; BI</p>
+          <ul class="skill-list">
+            <li>SQL (PostgreSQL)</li>
+            <li>Python (pandas, NumPy)</li>
+            <li>Power BI</li>
+            <li>Tableau</li>
+            <li>Excel / Google Sheets</li>
+          </ul>
+        </div>
+        <div class="fade-in d3">
+          <p class="skill-col-title">Tools &amp; Platforms</p>
+          <ul class="skill-list">
+            <li>HubSpot</li>
+            <li>Cookiebot</li>
+            <li>WordPress</li>
+            <li>Calendly</li>
+            <li>Tawk.to</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
     <section id="contact">
-      <div class="wrap">
-        <div class="contact-layout">
-          <div class="fade-in">
-            <span class="eyebrow">Contact</span>
-            <h2 class="contact-heading">Let's work<br />together</h2>
-            <p class="contact-copy">
-              Open to remote roles in marketing analytics and measurement, and
-              freelance engagements in GA4, GTM, and Google Ads implementation.
-            </p>
-            <div class="contact-detail">
-              <p class="contact-detail-label">Email</p>
-              <p class="contact-detail-value">mohdhammad.yousuf@edhec.com</p>
-            </div>
-            <div class="contact-detail">
-              <p class="contact-detail-label">Based in</p>
-              <p class="contact-detail-value">
-                New Delhi, India · Remote-first
-              </p>
-            </div>
+      <div class="contact-layout">
+        <div class="fade-in">
+          <h2 class="contact-heading">Let's work<br>together</h2>
+          <p class="contact-copy">
+            Open to remote roles in marketing analytics and measurement, and
+            freelance engagements in GA4, GTM, and Google Ads implementation.
+          </p>
+          <div class="contact-detail">
+            <p class="contact-detail-label">Email</p>
+            <p class="contact-detail-value">mohdhammad.yousuf@edhec.com</p>
           </div>
-          <form
-            class="contact-form fade-in delay-1"
-            action="https://formspree.io/f/xgobonbk"
-            method="POST"
-          >
-            <div class="field">
-              <label for="name">Name</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                placeholder="Your name"
-              />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                required
-                placeholder="you@company.com"
-              />
-            </div>
-            <div class="field">
-              <label for="enquiry">Enquiry type</label>
-              <select id="enquiry" name="enquiry">
-                <option value="job">Job opportunity</option>
-                <option value="freelance">Freelance project</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="message">Message</label>
-              <textarea
-                id="message"
-                name="message"
-                required
-                placeholder="Tell me about the role or project..."
-              ></textarea>
-            </div>
-            <button type="submit" class="form-submit">Send Message →</button>
-          </form>
+          <div class="contact-detail">
+            <p class="contact-detail-label">Based in</p>
+            <p class="contact-detail-value">New Delhi, India · Remote-first</p>
+          </div>
         </div>
+        <form class="contact-form fade-in d1" action="https://formspree.io/f/xgobonbk" method="POST">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@company.com" />
+          </div>
+          <div class="field">
+            <label for="enquiry">Enquiry type</label>
+            <select id="enquiry" name="enquiry">
+              <option value="job">Job opportunity</option>
+              <option value="freelance">Freelance project</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell me about the role or project..."></textarea>
+          </div>
+          <button type="submit" class="form-submit">Send Message →</button>
+        </form>
       </div>
     </section>
 
-    <!-- ── Footer ────────────────────────────────────────────────────── -->
+    <!-- Footer -->
     <footer>
-      <div class="wrap footer-inner">
+      <div class="footer-inner">
         <p class="footer-copy">© 2026 Mohd Hammad Yousuf</p>
         <div class="footer-links">
-          <a
-            href="https://linkedin.com/in/hammad-yousuf"
-            target="_blank"
-            rel="noopener"
-            >LinkedIn</a
-          >
-          <a href="https://github.com/dexhamter" target="_blank" rel="noopener"
-            >GitHub</a
-          >
+          <a href="https://linkedin.com/in/hammad-yousuf" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/dexhamter" target="_blank" rel="noopener">GitHub</a>
         </div>
       </div>
     </footer>
 
-    <!-- ── Scroll observer ────────────────────────────────────────────── -->
     <script>
+      // Nav scroll
       (function () {
-        var observer = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add("visible");
-                observer.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
-        );
+        var nav = document.getElementById("nav");
+        window.addEventListener("scroll", function () {
+          nav.classList.toggle("scrolled", window.scrollY > 40);
+        }, { passive: true });
+      })();
+
+      // Fade-in observer
+      (function () {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.06, rootMargin: "0px 0px -40px 0px" });
         document.querySelectorAll(".fade-in").forEach(function (el) {
           observer.observe(el);
         });
